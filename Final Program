@@ -1,3 +1,8 @@
+'''
+Final Project:
+A game where you try to hit a moving object, can control what angle you use
+Sources: Noah, https://www.pythoncentral.io/how-to-generate-a-random-number-in-python/
+'''
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 from math import floor
 SCREEN_WIDTH = 1000
@@ -80,9 +85,25 @@ class Game(App):
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
         Player((50,50))
-        Snow((60,90))
+        Game.listenKeyEvent("keydown", "s", self.snowMaker)
+        self.asset = [0,0]
+        Game.listenMouseEvent('mousemove', self.mouseMove)
         Arm((50,50))
-        Mitten((55,50))
+        Mitten((50,60))
+        
+    def snowMaker(self, event):
+        Snow((self.asset[0],self.asset[1]))
+        
+    def mouseMove(self, event):
+        self.asset[0] = event.x
+        self.asset[1] = event.y
+    
+            
+    def step(self):
+        for snow in self.getSpritesbyClass(Snow):
+            snow.vy = snow.vy+.5  
+
+            snow.y += snow.vy
 myapp = Game()
 myapp.run()
 
