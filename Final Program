@@ -1,0 +1,89 @@
+from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
+from math import floor
+SCREEN_WIDTH = 1000
+SCREEN_HEIGHT = 800
+
+blue = Color(0x2EFEC8, 1.0)
+black = Color(0x000000, 1.0)
+pink = Color(0xFF00FF, 1.0)
+red = Color(0xFF5733, 1.0)
+white = Color(0xFFFFFF, 1.0)
+red = Color(0xff0000, 1.0)
+green = Color(0x00ff00, 1.0)
+blue = Color(0x0000ff, 1.0)
+black = Color(0x000000, 1.0)
+white = Color(0xffffff, 1.0)
+grey = Color(0xC0C0C0, 1.0)
+teal = Color(0x9fffff, 1.0)
+coral = Color(0xff9664, 1.0)
+clear = Color(0x000000, 0.0)
+bluegrey = Color(0x585d7c, 1.0)
+blueblack = Color(0x37394c, 1.0)
+winter = Color(0x1f1a68, 1.0)
+maroon = Color(0x9f2d42, 1.0)
+purple = Color(0x9f86c0, 1.0)
+
+thinline = LineStyle(2, black)
+blkline = LineStyle(1, black)
+noline = LineStyle(0, white)
+coolline = LineStyle(1, grey)
+blueline = LineStyle(2, blue)
+redline = LineStyle(1, red)
+greenline = LineStyle(1, green)
+gridline = LineStyle(1, grey)
+clearline = LineStyle(1, clear)
+tealline =  LineStyle(1, teal)
+grid=RectangleAsset(30,30,gridline,white)
+
+
+class Player(Sprite):
+    """
+    Create Player
+    """
+    asset=ImageAsset("images/Screenshot 2018-10-31 at 11.png")
+
+    def __init__(self, position):
+        super().__init__(Player.asset, position)
+        
+        self.vx = 0
+        self.vy = 0
+
+class Snow(Sprite):
+    asset = RectangleAsset(2,2,noline,white)
+
+    def __init__(self, position):
+        super().__init__(Snow.asset, position)
+        self.vx = 0
+        self.vy = 5
+class Arm(Sprite):
+    asset = EllipseAsset(4,8, noline, purple)
+    def __init__(self, position):
+        super().__init__(Arm.asset, position)
+        self.vx = 0
+        self.vy = 0
+class Mitten(Sprite):
+    asset = CircleAsset(4, noline, blue)
+    def __init__(self, position):
+        super().__init__(Mitten.asset, position)
+        self.vx = 0
+        self.vy = 0
+class Game(App):
+    """
+    Tutorial4 space game example.
+    """
+    
+    def __init__(self):
+        super().__init__()
+        # Backgroundw
+        bg_asset = RectangleAsset(self.width, self.height, noline, winter)
+        ground_asset = RectangleAsset(self.width, 300, noline, white)
+        bg = Sprite(bg_asset, (0,0))
+        ground = Sprite(ground_asset, (0,400))
+        Player((50,50))
+        Snow((60,90))
+        Arm((50,50))
+        Mitten((55,50))
+myapp = Game()
+myapp.run()
+
+
