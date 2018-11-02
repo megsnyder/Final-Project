@@ -1,5 +1,5 @@
-# Title of Your Project Here
-
+# Snow Day!
+My program is a game in a wintry scene (snow falling), where your character is shooting snowballs at moving snowmen, trying to "kill" them. By holding down the mouse button, the arm will wind up as much as you want. Releasing the mouse button releases the snowball. If the snowmen reach the player 
 
 
 ## Functional Specification
