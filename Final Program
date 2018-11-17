@@ -5,6 +5,7 @@ Sources: Noah, https://www.pythoncentral.io/how-to-generate-a-random-number-in-p
 '''
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
 from math import floor
+import random
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
@@ -40,6 +41,7 @@ clearline = LineStyle(1, clear)
 tealline =  LineStyle(1, teal)
 grid=RectangleAsset(30,30,gridline,white)
 
+print("Hold down the mouse button to wind up your arm. Release and the snowball gets released as well.")
 
 class Player(Sprite):
     """
@@ -66,12 +68,17 @@ class Arm(Sprite):
         super().__init__(Arm.asset, position)
         self.vx = 0
         self.vy = 0
-class Mitten(Sprite):
-    asset = CircleAsset(4, noline, blue)
+        self.vr=0
+        self.fxcenter=.5
+class Snowball(Sprite):
+    asset = CircleAsset(4, noline, white)
     def __init__(self, position):
-        super().__init__(Mitten.asset, position)
+        super().__init__(Snowball.asset, position)
         self.vx = 0
         self.vy = 0
+        self.vr=0
+        self.fxcenter=.5
+        self.fycenter=-1.5
 class Game(App):
     """
     Tutorial4 space game example.
@@ -85,26 +92,67 @@ class Game(App):
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
         Player((50,50))
-        Game.listenKeyEvent("keydown", "s", self.snowMaker)
         self.asset = [0,0]
-        Game.listenMouseEvent('mousemove', self.mouseMove)
-        Arm((50,50))
-        Mitten((50,60))
+        Game.listenMouseEvent('mousedown', self.armspin)
+        Game.listenMouseEvent('mouseup', self.armstop)
+        Snowball((50,300))
+        Arm((50,300))
         
-    def snowMaker(self, event):
-        Snow((self.asset[0],self.asset[1]))
-        
-    def mouseMove(self, event):
-        self.asset[0] = event.x
-        self.asset[1] = event.y
-    
-            
+    def snowMaker():
+        rand=random.randint(1,1001)
+        rand2 = random.randint(1,1001)
+        rand3 =random.randint(1,1001) 
+        Snow((rand,0))
+        Snow((rand2,0))
+        Snow((rand3,0))
+        for snow in Game.getSpritesbyClass(Snow):
+            if snow.y>700:
+                snow.destroy()
+    def armspin(self,event):
+        for arm in self.getSpritesbyClass(Arm):
+            arm.vr=0.01
+        for snowball in self.getSpritesbyClass(Snowball):
+            snowball.vr=0.01
+    def armstop(self, event):
+        for arm in self.getSpritesbyClass(Arm):
+            arm.vr=0
+        for snowball in self.getSpritesbyClass(Snowball):
+            snowball.vr=0
+            m=1
+    n=0
+    time=0
+
     def step(self):
+        for arm in self.getSpritesbyClass(Arm):
+            if arm.vr>0:
+                arm.vr = arm.vr+.01
+            arm.rotation += arm.vr
+            arm.x += arm.vx
+            arm.y += arm.vy
+        for snowball in self.getSpritesbyClass(Snowball):
+            if snowball.vr>0:
+                snowball.vr = snowball.vr+.01
+            if m>0:
+                snowball.vx=
+                snowball.vy=+3*time
+            snowball.rotation += snowball.vr
+            snowball.x += snowball.vx
+            snowball.y += snowball.vy
+        self.time+=1
+        self.n+=1
+        if self.n%5==0:
+            Game.snowMaker()
         for snow in self.getSpritesbyClass(Snow):
-            snow.vy = snow.vy+.5  
+            snow.vy = snow.vy+.25  
 
             snow.y += snow.vy
+           
 myapp = Game()
 myapp.run()
+
+
+
+
+
 
 
