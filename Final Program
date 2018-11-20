@@ -4,7 +4,7 @@ A game where you try to hit a moving object, can control what angle you use
 Sources: Noah, https://www.pythoncentral.io/how-to-generate-a-random-number-in-python/
 '''
 from ggame import App, Color, LineStyle, Sprite, RectangleAsset, CircleAsset, EllipseAsset, PolygonAsset, ImageAsset, Frame
-from math import floor
+from math import floor, sin, cos
 import random
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
@@ -131,10 +131,11 @@ class Game(App):
             arm.y += arm.vy
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.vr>0:
-                snowball.vr = snowball.vr+.01
+                snowball.vr = snowball.vr+.0
             if m>0:
-                snowball.vx=
-                snowball.vy=+3*time
+                snowball.vr =0
+                snowball.vx=(sin(snowball.rotation))*8 + 3*time
+                snowball.vy=(cos(snowball.rotation))*8
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
             snowball.y += snowball.vy
