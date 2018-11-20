@@ -70,6 +70,7 @@ class Arm(Sprite):
         self.vy = 0
         self.vr=0
         self.fxcenter=.5
+        
 class Snowball(Sprite):
     asset = CircleAsset(4, noline, white)
     def __init__(self, position):
@@ -79,6 +80,7 @@ class Snowball(Sprite):
         self.vr=0
         self.fxcenter=.5
         self.fycenter=-1.5
+        self.m=0
 class Game(App):
     """
     Tutorial4 space game example.
@@ -97,6 +99,7 @@ class Game(App):
         Game.listenMouseEvent('mouseup', self.armstop)
         Snowball((50,300))
         Arm((50,300))
+        m=0
         
     def snowMaker():
         rand=random.randint(1,1001)
@@ -118,7 +121,7 @@ class Game(App):
             arm.vr=0
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.vr=0
-            m=1
+            
     n=0
     time=0
 
@@ -131,11 +134,13 @@ class Game(App):
             arm.y += arm.vy
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.vr>0:
-                snowball.vr = snowball.vr+.0
-            if m>0:
-                snowball.vr =0
-                snowball.vx=(sin(snowball.rotation))*8 + 3*time
-                snowball.vy=(cos(snowball.rotation))*8
+                snowball.vr = snowball.vr+.01
+                snowball.m+=1
+            if snowball.vr==0 and snowball.m>0:
+                print("hi")
+                #snowball.vx=(sin(snowball.rotation))*8 + 3*time
+                #snowball.vy=(cos(snowball.rotation))*8
+                snowball.m=0
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
             snowball.y += snowball.vy
