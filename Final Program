@@ -138,8 +138,8 @@ class Game(App):
                 snowball.m+=1
             if snowball.vr==0 and snowball.m>0:
                 print("hi")
-                #snowball.vx=(sin(snowball.rotation))*8 + 3*time
-                #snowball.vy=(cos(snowball.rotation))*8
+                snowball.vx=(sin(snowball.rotation))*8
+                snowball.vy=(cos(snowball.rotation))*8 + .5*self.time
                 snowball.m=0
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
