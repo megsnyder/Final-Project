@@ -120,6 +120,8 @@ class Game(App):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0
         for snowball in self.getSpritesbyClass(Snowball):
+            snowball.vx0= (cos(snowball.rotation))*snowball.vr
+            snowball.vy0=-(sin(snowball.rotation))*snowball.vr
             snowball.vr=0
             
     n=0
@@ -138,12 +140,12 @@ class Game(App):
                 snowball.m+=1
             if snowball.vr==0 and snowball.m>0:
                 print("hi")
-                snowball.vx=(sin(snowball.rotation))*8
-                snowball.vy=(cos(snowball.rotation))*8 + .5*self.time
-                snowball.m=0
+                snowball.vx=snowball.vx0*5
+                snowball.vy=snowball.vy0*5 #+ .01*self.time
+        
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
-            snowball.y += snowball.vy
+            snowball.y += snowball.vy 
         self.time+=1
         self.n+=1
         if self.n%5==0:
