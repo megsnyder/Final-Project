@@ -139,9 +139,9 @@ class Game(App):
                 snowball.vr = snowball.vr+.01
                 snowball.m+=1
             if snowball.vr==0 and snowball.m>0:
-                print("hi")
-                snowball.vx=snowball.vx0*5
-                snowball.vy=snowball.vy0*5 #+ .01*self.time
+                #print("hi")
+                snowball.vx=snowball.vx0*25
+                snowball.vy=snowball.vy0*25 + .05*self.time
         
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
