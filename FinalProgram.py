@@ -47,7 +47,7 @@ class Player(Sprite):
     """
     Create Player
     """
-    asset=ImageAsset("images/Screenshot 2018-10-31 at 11.png")
+    asset=ImageAsset("images/Screenshot 2018-11-28 at 11.png")
 
     def __init__(self, position):
         super().__init__(Player.asset, position)
@@ -93,7 +93,7 @@ class Game(App):
         ground_asset = RectangleAsset(self.width, 300, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
-        Player((50,350))
+        Player((54,343))
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
