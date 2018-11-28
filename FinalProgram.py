@@ -81,6 +81,14 @@ class Snowball(Sprite):
         self.fxcenter=.5
         self.fycenter=-1.5
         self.m=0
+class Snowman(Sprite):
+    asset=ImageAsset("images/Screenshot 2018-11-28 at 12.png")
+
+    def __init__(self, position):
+        super().__init__(Snowman.asset, position)
+        
+        self.vx = 0
+        self.vy = 0
 class Game(App):
     """
     Tutorial4 space game example.
@@ -99,6 +107,7 @@ class Game(App):
         Game.listenMouseEvent('mouseup', self.armstop)
         Snowball((70,375))
         Arm((70,375))
+        Snowman((400,195))
         m=0
         
     def snowMaker():
@@ -141,11 +150,14 @@ class Game(App):
             if snowball.vr==0 and snowball.m>0:
                 #print("hi")
                 snowball.vx=snowball.vx0*30
-                snowball.vy=snowball.vy0*30 + .05*self.time
-        
+                snowball.vy=snowball.vy0*30 + .1*self.time
+                
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
             snowball.y += snowball.vy 
+            for snowman in self.getSpritesbyClass(Snowman):
+                if snowball.collidingWith(snowman):
+                    snowman.visible=False
         self.time+=1
         self.n+=1
         if self.n%5==0:
