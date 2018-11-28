@@ -149,8 +149,8 @@ class Game(App):
                 snowball.m+=1
             if snowball.vr==0 and snowball.m>0:
                 #print("hi")
-                snowball.vx=snowball.vx0*30
-                snowball.vy=snowball.vy0*30 + .1*self.time
+                snowball.vx=snowball.vx0*35
+                snowball.vy=snowball.vy0*35 + .1*self.time
                 
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
@@ -158,6 +158,11 @@ class Game(App):
             for snowman in self.getSpritesbyClass(Snowman):
                 if snowball.collidingWith(snowman):
                     snowman.visible=False
+        '''
+        for snowman in self.getSpritesbyClaas(Snowman):
+            snowball.x+=snowball.vx*.01
+            snowball.y+=snowball.vy*.01
+        '''
         self.time+=1
         self.n+=1
         if self.n%5==0:
