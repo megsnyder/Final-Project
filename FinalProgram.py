@@ -63,7 +63,7 @@ class Snow(Sprite):
         self.vx = 0
         self.vy = 5
 class Arm(Sprite):
-    asset = EllipseAsset(4,8, noline, purple)
+    asset = EllipseAsset(4,8, gridline, black)
     def __init__(self, position):
         super().__init__(Arm.asset, position)
         self.vx = 0
@@ -93,12 +93,12 @@ class Game(App):
         ground_asset = RectangleAsset(self.width, 300, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
-        Player((50,50))
+        Player((50,350))
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
-        Snowball((50,300))
-        Arm((50,300))
+        Snowball((70,375))
+        Arm((70,375))
         m=0
         
     def snowMaker():
@@ -140,8 +140,8 @@ class Game(App):
                 snowball.m+=1
             if snowball.vr==0 and snowball.m>0:
                 #print("hi")
-                snowball.vx=snowball.vx0*25
-                snowball.vy=snowball.vy0*25 + .05*self.time
+                snowball.vx=snowball.vx0*30
+                snowball.vy=snowball.vy0*30 + .05*self.time
         
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
