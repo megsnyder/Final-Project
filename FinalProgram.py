@@ -180,7 +180,7 @@ class Game(App):
                 for player in self.getSpritesbyClass(Player):
                     if snowman.collidingWith(player):
                         player.destroy()
-                        print("Your score is: " + score)
+                        #print("Your score is: " + snowball.score)
         '''
         for snowman in self.getSpritesbyClaas(Snowman):
             snowball.x+=snowball.vx*.01
