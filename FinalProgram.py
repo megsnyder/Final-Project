@@ -89,6 +89,14 @@ class Snowman(Sprite):
         
         self.vx = 0
         self.vy = 0
+class Core(Sprite):
+    asset=RectangleAsset(30,150,noline, teal)
+
+    def __init__(self, position):
+        super().__init__(Core.asset, position)
+        #self.visible=False
+        self.vx = 0
+        self.vy = 0
 class Game(App):
     """
     Tutorial4 space game example.
@@ -135,6 +143,7 @@ class Game(App):
             
     n=0
     time=0
+    o=0
 
     def step(self):
         for arm in self.getSpritesbyClass(Arm):
