@@ -94,7 +94,7 @@ class Core(Sprite):
 
     def __init__(self, position):
         super().__init__(Core.asset, position)
-        #self.visible=False
+        self.visible=False
         self.vx = 0
         self.vy = 0
 class Game(App):
