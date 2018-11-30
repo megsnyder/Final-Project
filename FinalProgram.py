@@ -131,6 +131,12 @@ class Game(App):
     def snowmenMaker():
         Snowman((1100,195))
         Core((1170,250))
+        for snowman in Game.getSpritesbyClass(Snowman):
+            if snowman.x<0:
+                snowman.destroy()
+        for core in Game.getSpritesbyClass(Core):
+            if core.x<0:
+                core.destroy()
     def armspin(self,event):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0.01
@@ -169,7 +175,7 @@ class Game(App):
             snowball.y += snowball.vy 
             for snowman in self.getSpritesbyClass(Snowman):
                 if snowball.collidingWith(snowman):
-                    snowman.visible=False
+                    snowman.destroy
         '''
         for snowman in self.getSpritesbyClaas(Snowman):
             snowball.x+=snowball.vx*.01
