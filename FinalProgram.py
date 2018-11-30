@@ -115,7 +115,7 @@ class Game(App):
         Game.listenMouseEvent('mouseup', self.armstop)
         Snowball((70,375))
         Arm((70,375))
-        Snowman((400,195))
+        #Snowman((400,195))
         m=0
         
     def snowMaker():
@@ -128,6 +128,9 @@ class Game(App):
         for snow in Game.getSpritesbyClass(Snow):
             if snow.y>700:
                 snow.destroy()
+    def snowmenMaker():
+        Snowman((1100,195))
+        Core((1170,250))
     def armspin(self,event):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0.01
@@ -174,12 +177,23 @@ class Game(App):
         '''
         self.time+=1
         self.n+=1
+        self.o+=1
         if self.n%5==0:
             Game.snowMaker()
         for snow in self.getSpritesbyClass(Snow):
             snow.vy = snow.vy+.25  
 
             snow.y += snow.vy
+        if self.o%130==0:
+            Game.snowmenMaker()
+        for core in self.getSpritesbyClass(Core):
+            core.vx = -.25  
+
+            core.x += core.vx
+        for snowman in self.getSpritesbyClass(Snowman):
+            snowman.vx = -.25  
+
+            snowman.x += snowman.vx
            
 myapp = Game()
 myapp.run()
