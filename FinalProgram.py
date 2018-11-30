@@ -145,10 +145,13 @@ class Game(App):
     def armstop(self, event):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0
+            arm.destroy()
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.vx0= (cos(snowball.rotation))*snowball.vr
             snowball.vy0=-(sin(snowball.rotation))*snowball.vr
             snowball.vr=0
+        Snowball((70,375))
+        Arm((70,375))
             
     n=0
     time=0
@@ -175,13 +178,14 @@ class Game(App):
             snowball.y += snowball.vy 
             for snowman in self.getSpritesbyClass(Snowman):
                 if snowball.collidingWith(snowman):
-                    snowman.destroy
+                    snowman.destroy()
                     snowball.score=snowball.score+1
                 for player in self.getSpritesbyClass(Player):
                     for arm in self.getSpritesbyClass(Arm):
                         if snowman.collidingWith(player):
                             player.destroy()
                             arm.destroy()
+                            snowball.destroy()
                             print("Your score is: " + str(self.score))
         '''
         for snowman in self.getSpritesbyClaas(Snowman):
