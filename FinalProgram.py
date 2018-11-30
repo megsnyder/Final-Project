@@ -187,11 +187,11 @@ class Game(App):
         if self.o%130==0:
             Game.snowmenMaker()
         for core in self.getSpritesbyClass(Core):
-            core.vx = -.25  
+            core.vx = -7
 
             core.x += core.vx
         for snowman in self.getSpritesbyClass(Snowman):
-            snowman.vx = -.25  
+            snowman.vx = -7  
 
             snowman.x += snowman.vx
            
