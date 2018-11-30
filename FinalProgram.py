@@ -158,6 +158,7 @@ class Game(App):
     o=0
     score=0
     def step(self):
+        '''
         for arm in self.getSpritesbyClass(Arm):
             if arm.vr>0:
                 arm.vr = arm.vr+.01
@@ -187,11 +188,7 @@ class Game(App):
                             arm.destroy()
                             snowball.destroy()
                             print("Your score is: " + str(self.score))
-        '''
-        for snowman in self.getSpritesbyClaas(Snowman):
-            snowball.x+=snowball.vx*.01
-            snowball.y+=snowball.vy*.01
-        '''
+       
         self.time+=1
         self.n+=1
         self.o+=1
@@ -211,6 +208,7 @@ class Game(App):
             snowman.vx = -7  
 
             snowman.x += snowman.vx
+        '''
 myapp = Game()
 myapp.run()
 
