@@ -71,6 +71,14 @@ class Arm(Sprite):
         self.vr=0
         self.fxcenter=.5
         
+    def step(self):
+    
+        if self.vr>0:
+            self.vr = self.vr+.01
+        self.rotation += self.vr
+        self.x += self.vx
+        self.y += self.vy
+        
 class Snowball(Sprite):
     asset = CircleAsset(4, noline, white)
     def __init__(self, position):
