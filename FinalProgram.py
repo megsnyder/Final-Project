@@ -166,6 +166,8 @@ class Game(App):
     o=0
     score=0
     def step(self):
+        for arm in self.getSpritesbyClass(Arm):
+            arm.step()
         '''
         for arm in self.getSpritesbyClass(Arm):
             if arm.vr>0:
