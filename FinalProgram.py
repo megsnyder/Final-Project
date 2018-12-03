@@ -70,7 +70,7 @@ class Arm(Sprite):
         self.vy = 0
         self.vr=0
         self.fxcenter=.5
-        
+    '''    
     def step(self):
     
         if self.vr>0:
@@ -78,7 +78,7 @@ class Arm(Sprite):
         self.rotation += self.vr
         self.x += self.vx
         self.y += self.vy
-        
+    '''
 class Snowball(Sprite):
     asset = CircleAsset(4, noline, white)
     def __init__(self, position):
@@ -89,6 +89,38 @@ class Snowball(Sprite):
         self.fxcenter=.5
         self.fycenter=-1.5
         self.m=0
+        self.time=0
+        self.score=0
+    
+    def step(self):
+        if self.vr>0:
+            self.vr = self.vr+.01
+            self.m+=1
+        if self.vr==0 and self.m>0:
+            #print("hi")
+            self.vx=self.vx0*35
+            self.vy=self.vy0*35 + .1*self.time
+                
+        self.rotation += self.vr
+        self.x += self.vx
+        self.y += self.vy 
+        self.time+=1
+        '''
+        for snowman in Game.getSpritesbyClass(Snowman):
+                if self.collidingWith(snowman):
+                    snowman.destroy()
+                    self.score=self.score+1
+                    print(self.score)
+         for snowman in Game.getSpritesbyClass(Snowman):            
+            for player in Game.getSpritesbyClass(Player):
+                for arm in Game.getSpritesbyClass(Arm):
+                    if snowman.collidingWith(player):
+                        player.destroy()
+                        arm.destroy()
+                        self.destroy()
+                        print("Your score is: " + str(self.score))
+        '''
+        
 class Snowman(Sprite):
     asset=ImageAsset("images/Screenshot 2018-11-28 at 12.png")
 
@@ -136,15 +168,7 @@ class Game(App):
         for snow in Game.getSpritesbyClass(Snow):
             if snow.y>700:
                 snow.destroy()
-    def snowmenMaker():
-        Snowman((1100,195))
-        Core((1170,250))
-        for snowman in Game.getSpritesbyClass(Snowman):
-            if snowman.x<0:
-                snowman.destroy()
-        for core in Game.getSpritesbyClass(Core):
-            if core.x<0:
-                core.destroy()
+
     def armspin(self,event):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0.01
@@ -160,21 +184,34 @@ class Game(App):
             snowball.vr=0
         Snowball((70,375))
         Arm((70,375))
+    
+    def snowmenMaker():
+        Snowman((1100,195))
+        Core((1170,250))
+        for snowman in Game.getSpritesbyClass(Snowman):
+            if snowman.x<0:
+                snowman.destroy()
+        for core in Game.getSpritesbyClass(Core):
+            if core.x<0:
+                core.destroy()
             
     n=0
     time=0
     o=0
     score=0
     def step(self):
-        for arm in self.getSpritesbyClass(Arm):
-            arm.step()
-        '''
+        #for arm in self.getSpritesbyClass(Arm):
+            #arm.step()
+        for snowball in self.getSpritesbyClass(Snowball):
+            snowball.step()
+        
         for arm in self.getSpritesbyClass(Arm):
             if arm.vr>0:
                 arm.vr = arm.vr+.01
             arm.rotation += arm.vr
             arm.x += arm.vx
             arm.y += arm.vy
+        '''
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.vr>0:
                 snowball.vr = snowball.vr+.01
@@ -187,21 +224,9 @@ class Game(App):
             snowball.rotation += snowball.vr
             snowball.x += snowball.vx
             snowball.y += snowball.vy 
-            for snowman in self.getSpritesbyClass(Snowman):
-                if snowball.collidingWith(snowman):
-                    snowman.destroy()
-                    snowball.score=snowball.score+1
-                for player in self.getSpritesbyClass(Player):
-                    for arm in self.getSpritesbyClass(Arm):
-                        if snowman.collidingWith(player):
-                            player.destroy()
-                            arm.destroy()
-                            snowball.destroy()
-                            print("Your score is: " + str(self.score))
-       
-        self.time+=1
-        self.n+=1
-        self.o+=1
+        '''
+        
+    
         if self.n%5==0:
             Game.snowMaker()
         for snow in self.getSpritesbyClass(Snow):
@@ -210,15 +235,58 @@ class Game(App):
             snow.y += snow.vy
         if self.o%130==0:
             Game.snowmenMaker()
-        for core in self.getSpritesbyClass(Core):
-            core.vx = -7
+        if self.time>0:
+            for core in self.getSpritesbyClass(Core):
+                core.vx = -7
 
-            core.x += core.vx
+                core.x += core.vx
+            for snowman in self.getSpritesbyClass(Snowman):
+                snowman.vx = -7  
+
+                snowman.x += snowman.vx
+        if self.time>750:
+            for core in self.getSpritesbyClass(Core):
+                core.vx = -11
+
+                core.x += core.vx
+            for snowman in self.getSpritesbyClass(Snowman):
+                snowman.vx = -11  
+
+                snowman.x += snowman.vx
+        if self.time>1250:
+            for core in self.getSpritesbyClass(Core):
+                core.vx = -15
+
+                core.x += core.vx
+            for snowman in self.getSpritesbyClass(Snowman):
+                snowman.vx = -15  
+
+                snowman.x += snowman.vx
+        
         for snowman in self.getSpritesbyClass(Snowman):
-            snowman.vx = -7  
-
-            snowman.x += snowman.vx
-        '''
+            for snowball in self.getSpritesbyClass(Snowball):
+                for core in self.getSpritesbyClass(Core):
+                    if snowball.collidingWith(core):
+                        snowman.destroy()
+                        core.destroy()
+                        self.score=self.score+1
+                        print(self.score)
+        
+        for core in self.getSpritesbyClass(Core):
+            for snowman in self.getSpritesbyClass(Snowman):
+                for snowball in self.getSpritesbyClass(Snowball):
+                    for player in self.getSpritesbyClass(Player):
+                        for arm in self.getSpritesbyClass(Arm):
+                            if core.collidingWith(player):
+                                player.destroy()
+                                arm.destroy()
+                                snowball.destroy()
+                                print("Your score is: " + str(self.score))
+            
+        self.time+=1
+        self.n+=1
+        self.o+=1
+        
 myapp = Game()
 myapp.run()
 
