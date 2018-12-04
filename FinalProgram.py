@@ -98,7 +98,7 @@ class Snowball(Sprite):
         if self.vr>0 and self.holding==True:
             self.vr = self.vr+.01
             self.m+=1
-        if self.vr==0 and self.m>0:
+        if self.vr==0 and self.m>0 and self.holding==False:
             #print("hi")
             self.vx=self.vx0*35
             self.vy=self.vy0*35 + .1*self.time
@@ -181,12 +181,14 @@ class Game(App):
             arm.vr=0
             arm.destroy()
         for snowball in self.getSpritesbyClass(Snowball):
-            snowball.vx0= (cos(snowball.rotation))*snowball.vr
-            snowball.vy0=-(sin(snowball.rotation))*snowball.vr
-            snowball.vr=0
+            if snowball.holding==True:
+                snowball.vx0= (cos(snowball.rotation))*snowball.vr
+                snowball.vy0=-(sin(snowball.rotation))*snowball.vr
+                snowball.vr=0
+                snowball.holding=False
             if snowball.y>700:
                 snowball.destroy()
-            snowball.holding=False
+                
         Snowball((70,375))
         Arm((70,375))
     
