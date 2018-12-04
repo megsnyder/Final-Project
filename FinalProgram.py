@@ -42,6 +42,7 @@ tealline =  LineStyle(1, teal)
 grid=RectangleAsset(30,30,gridline,white)
 
 print("Hold down the mouse button to wind up your arm. Release and the snowball gets released as well.")
+print(" ")
 
 class Player(Sprite):
     """
@@ -91,9 +92,10 @@ class Snowball(Sprite):
         self.m=0
         self.time=0
         self.score=0
+        self.holding=True
     
     def step(self):
-        if self.vr>0:
+        if self.vr>0 and self.holding==True:
             self.vr = self.vr+.01
             self.m+=1
         if self.vr==0 and self.m>0:
@@ -182,6 +184,9 @@ class Game(App):
             snowball.vx0= (cos(snowball.rotation))*snowball.vr
             snowball.vy0=-(sin(snowball.rotation))*snowball.vr
             snowball.vr=0
+            if snowball.y>700:
+                snowball.destroy()
+            snowball.holding=False
         Snowball((70,375))
         Arm((70,375))
     
@@ -270,7 +275,7 @@ class Game(App):
                         snowman.destroy()
                         core.destroy()
                         self.score=self.score+1
-                        print(self.score)
+                        #print(self.score)
         
         for core in self.getSpritesbyClass(Core):
             for snowman in self.getSpritesbyClass(Snowman):
