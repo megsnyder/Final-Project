@@ -195,7 +195,7 @@ class Game(App):
                 snowball.holding=False
             if snowball.y>700:
                 snowball.destroy()
-        for player in self.getSpritesbyClass(Snowball):        
+        for player in self.getSpritesbyClass(Player):        
             Snowball((16+player.x,32+player.y))
             Arm((16+player.x,32+player.y))
     def right(self,event):
