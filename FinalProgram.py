@@ -139,6 +139,7 @@ class Core(Sprite):
         self.visible=False
         self.vx = 0
         self.vy = 0
+
 class Game(App):
     """
     Tutorial4 space game example.
@@ -155,6 +156,10 @@ class Game(App):
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
+        Game.listenKeyEvent("keydown", "right arrow", self.right)
+        Game.listenKeyEvent("keyup", "right arrow", self.right2)
+        Game.listenKeyEvent("keydown", "left arrow", self.left)
+        Game.listenKeyEvent("keyup", "left arrow", self.left2)
         Snowball((70,375))
         Arm((70,375))
         #Snowman((400,195))
@@ -175,7 +180,9 @@ class Game(App):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0.01
         for snowball in self.getSpritesbyClass(Snowball):
-            snowball.vr=0.01
+            if snowball.holding==True:
+                snowball.vr=0.01
+
     def armstop(self, event):
         for arm in self.getSpritesbyClass(Arm):
             arm.vr=0
@@ -188,9 +195,41 @@ class Game(App):
                 snowball.holding=False
             if snowball.y>700:
                 snowball.destroy()
-                
-        Snowball((70,375))
-        Arm((70,375))
+        for player in self.getSpritesbyClass(Snowball):        
+            Snowball((16+player.x,32+player.y))
+            Arm((16+player.x,32+player.y))
+    def right(self,event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx = 2
+        for arm in self.getSpritesbyClass(Arm):
+            arm.vx = 2
+        for snowball in self.getSpritesbyClass(Snowball):
+            if snowball.holding==True:
+                snowball.vx = 2
+    def right2(self,event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx=0 
+        for arm in self.getSpritesbyClass(Arm):
+            arm.vx = 0
+        for snowball in self.getSpritesbyClass(Snowball):
+            if snowball.holding==True:
+                snowball.vx = 0
+    def left(self,event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx = -2
+        for arm in self.getSpritesbyClass(Arm):
+            arm.vx = -2
+        for snowball in self.getSpritesbyClass(Snowball):
+            if snowball.holding==True:
+                snowball.vx = -2
+    def left2(self,event):
+        for player in self.getSpritesbyClass(Player):
+            player.vx=0 
+        for arm in self.getSpritesbyClass(Arm):
+            arm.vx = 0
+        for snowball in self.getSpritesbyClass(Snowball):
+            if snowball.holding==True:
+                snowball.vx = 0
     
     def snowmenMaker():
         Snowman((1100,195))
@@ -211,6 +250,10 @@ class Game(App):
             #arm.step()
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.step()
+        for player in self.getSpritesbyClass(Player):
+ 
+            player.x += player.vx
+            player.y += player.vy
         
         for arm in self.getSpritesbyClass(Arm):
             if arm.vr>0:
