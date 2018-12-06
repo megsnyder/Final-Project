@@ -227,7 +227,7 @@ class Game(App):
     def left2(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx=0 
-            player.width=-1*player.width
+            player.width=player.width
             player.x=player.x-30
         for arm in self.getSpritesbyClass(Arm):
             arm.vx = 0
