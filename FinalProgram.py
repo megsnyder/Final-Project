@@ -274,8 +274,8 @@ class Game(App):
             if core.x<0:
                 core.destroy()
     def snowmenMaker2():
-        Snowman((0,195))
-        Core((0,250))
+        Snowman((-150,195))
+        Core((-220,250))
         for snowman in Game.getSpritesbyClass(Snowman):
             if snowman.x>1000:
                 snowman.destroy()
