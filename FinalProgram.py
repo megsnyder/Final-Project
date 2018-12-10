@@ -164,7 +164,7 @@ class Game(App):
         ground_asset = RectangleAsset(self.width, 300, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
-        Player((54,343))
+        Player((484,343))
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
@@ -172,8 +172,8 @@ class Game(App):
         Game.listenKeyEvent("keyup", "right arrow", self.right2)
         Game.listenKeyEvent("keydown", "left arrow", self.left)
         Game.listenKeyEvent("keyup", "left arrow", self.left2)
-        Snowball((70,375))
-        Arm((70,375))
+        Snowball((500,375))
+        Arm((500,375))
         #Snowman((400,195))
         m=0
         
