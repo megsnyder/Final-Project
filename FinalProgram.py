@@ -377,7 +377,7 @@ class Game(App):
                         core.destroy()
                         self.score=self.score+1
                         #print(self.score)
-        '''
+        
         for core in self.getSpritesbyClass(Core):
             for snowman in self.getSpritesbyClass(Snowman):
                 for snowball in self.getSpritesbyClass(Snowball):
@@ -388,7 +388,7 @@ class Game(App):
                                 arm.destroy()
                                 snowball.destroy()
                                 print("Your score is: " + str(self.score))
-        '''               
+                 
             
         self.time+=1
         self.n+=1
