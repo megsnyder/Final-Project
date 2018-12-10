@@ -241,7 +241,7 @@ class Game(App):
             #player.vx = -2
             
             player.width=-42
-            player.x=player.x+30
+            player.x=514
         for arm in self.getSpritesbyClass(Arm):
             #arm.vx = -2
             arm.reverse=True
