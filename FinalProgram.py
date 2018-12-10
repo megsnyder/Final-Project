@@ -71,6 +71,7 @@ class Arm(Sprite):
         self.vy = 0
         self.vr=0
         self.fxcenter=.5
+        self.reverse=False
     '''    
     def step(self):
     
@@ -93,16 +94,25 @@ class Snowball(Sprite):
         self.time=0
         self.score=0
         self.holding=True
+        self.reverse=False
     
     def step(self):
-        if self.vr>0 and self.holding==True:
-            self.vr = self.vr+.01
-            self.m+=1
-        if self.vr==0 and self.m>0 and self.holding==False:
-            #print("hi")
-            self.vx=self.vx0*35
-            self.vy=self.vy0*35 + .1*self.time
-                
+        if self.reverse==False
+            if self.vr>0 and self.holding==True:
+                self.vr = self.vr+.01
+                self.m+=1
+            if self.vr==0 and self.m>0 and self.holding==False:
+                #print("hi")
+                self.vx=self.vx0*35
+                self.vy=self.vy0*35 + .1*self.time
+        if self.reverse==True:
+            if self.vr>0 and self.holding==True:
+                self.vr = self.vr-.01
+                self.m+=1
+            if self.vr==0 and self.m>0 and self.holding==False:
+                #print("hi")
+                self.vx=-self.vx0*35
+                self.vy=self.vy0*35 + .1*self.time
         self.rotation += self.vr
         self.x += self.vx
         self.y += self.vy 
@@ -201,14 +211,18 @@ class Game(App):
     def right(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx = 2
+            player.width=42
         for arm in self.getSpritesbyClass(Arm):
             arm.vx = 2
+            arm.reverse=False
         for snowball in self.getSpritesbyClass(Snowball):
+            snowball.reverse=False
             if snowball.holding==True:
                 snowball.vx = 2
     def right2(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx=0 
+
         for arm in self.getSpritesbyClass(Arm):
             arm.vx = 0
         for snowball in self.getSpritesbyClass(Snowball):
@@ -217,18 +231,21 @@ class Game(App):
     def left(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx = -2
-            player.width=-1*player.width
-            player.x=player.x+30
+            
+            player.width=-42
+            #player.x=player.x+30
         for arm in self.getSpritesbyClass(Arm):
             arm.vx = -2
+            arm.reverse=True
         for snowball in self.getSpritesbyClass(Snowball):
+            snowball.reverse=True
             if snowball.holding==True:
                 snowball.vx = -2
     def left2(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx=0 
             player.width=player.width
-            player.x=player.x-30
+            #player.x=player.x-30
         for arm in self.getSpritesbyClass(Arm):
             arm.vx = 0
         for snowball in self.getSpritesbyClass(Snowball):
@@ -260,8 +277,12 @@ class Game(App):
             player.y += player.vy
         
         for arm in self.getSpritesbyClass(Arm):
-            if arm.vr>0:
-                arm.vr = arm.vr+.01
+            if arm.reverse=False:
+                if arm.vr>0:
+                    arm.vr = arm.vr+.01
+            if arm.reverse=True:
+                if arm.vr>0:
+                    arm.vr = arm.vr-.01
             arm.rotation += arm.vr
             arm.x += arm.vx
             arm.y += arm.vy
@@ -336,6 +357,7 @@ class Game(App):
                                 arm.destroy()
                                 snowball.destroy()
                                 print("Your score is: " + str(self.score))
+                                
             
         self.time+=1
         self.n+=1
