@@ -169,9 +169,9 @@ class Game(App):
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
         Game.listenKeyEvent("keydown", "right arrow", self.right)
-        Game.listenKeyEvent("keyup", "right arrow", self.right2)
+        #Game.listenKeyEvent("keyup", "right arrow", self.right2)
         Game.listenKeyEvent("keydown", "left arrow", self.left)
-        Game.listenKeyEvent("keyup", "left arrow", self.left2)
+        #Game.listenKeyEvent("keyup", "left arrow", self.left2)
         Snowball((500,375))
         Arm((500,375))
         #Snowman((400,195))
@@ -210,19 +210,21 @@ class Game(App):
             if snowball.y>700:
                 snowball.destroy()
         for player in self.getSpritesbyClass(Player):        
-            Snowball((16+player.x,32+player.y))
-            Arm((16+player.x,32+player.y))
+            Snowball((500,375))
+            Arm((500,375))
     def right(self,event):
         for player in self.getSpritesbyClass(Player):
-            player.vx = 2
+            #player.vx = 2
             player.width=42
+            player.x=484
         for arm in self.getSpritesbyClass(Arm):
-            arm.vx = 2
+            #arm.vx = 2
             arm.reverse=False
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.reverse=False
-            if snowball.holding==True:
-                snowball.vx = 2
+            #if snowball.holding==True:
+                #snowball.vx = 2
+    '''
     def right2(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx=0 
@@ -232,19 +234,21 @@ class Game(App):
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.holding==True:
                 snowball.vx = 0
+    '''
     def left(self,event):
         for player in self.getSpritesbyClass(Player):
-            player.vx = -2
+            #player.vx = -2
             
             player.width=-42
-            #player.x=player.x+30
+            player.x=player.x+30
         for arm in self.getSpritesbyClass(Arm):
-            arm.vx = -2
+            #arm.vx = -2
             arm.reverse=True
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.reverse=True
-            if snowball.holding==True:
-                snowball.vx = -2
+            #if snowball.holding==True:
+                #snowball.vx = -2
+    '''
     def left2(self,event):
         for player in self.getSpritesbyClass(Player):
             player.vx=0 
@@ -255,6 +259,7 @@ class Game(App):
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.holding==True:
                 snowball.vx = 0
+    '''
     
     def snowmenMaker():
         Snowman((1100,195))
