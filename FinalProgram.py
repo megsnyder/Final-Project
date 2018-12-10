@@ -149,7 +149,7 @@ class Core(Sprite):
 
     def __init__(self, position):
         super().__init__(Core.asset, position)
-        self.visible=False
+        #self.visible=False
         self.vx = 0
         self.vy = 0
 
@@ -275,8 +275,9 @@ class Game(App):
                 core.destroy()
     def snowmenMaker2():
         Snowman((-150,195))
-        Core((-220,250))
+        Core((-80,250))
         for snowman in Game.getSpritesbyClass(Snowman):
+            snowman.width=-160
             if snowman.x>1000:
                 snowman.destroy()
             snowman.end=False
@@ -330,10 +331,10 @@ class Game(App):
             snow.vy = snow.vy+.25  
 
             snow.y += snow.vy
-        if self.o%random.randint(100,800)==0:
+        if self.o%random.randint(100,500)==0:
             Game.snowmenMaker1()
             
-        if self.o%random.randint(100,800)==0:
+        if self.o%random.randint(100,500)==0:
             Game.snowmenMaker2()
         if self.time>0:
             for snowman in self.getSpritesbyClass(Snowman):
