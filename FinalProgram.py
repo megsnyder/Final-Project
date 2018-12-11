@@ -157,12 +157,20 @@ class Snowman2(Sprite):
         self.vx = 0
         self.vy = 0
         
-class Core(Sprite):
-    asset=RectangleAsset(30,150,noline, teal)
+class Core1(Sprite):
+    asset=RectangleAsset(50,160,noline, teal)
 
     def __init__(self, position):
-        super().__init__(Core.asset, position)
-        #self.visible=False
+        super().__init__(Core1.asset, position)
+        self.visible=False
+        self.vx = 0
+        self.vy = 0
+class Core2(Sprite):
+    asset=RectangleAsset(50,160,noline, teal)
+
+    def __init__(self, position):
+        super().__init__(Core2.asset, position)
+        self.visible=False
         self.vx = 0
         self.vy = 0
 
@@ -278,23 +286,23 @@ class Game(App):
     def snowmenMaker1():
         
         Snowman1((1100,195))
-        Core((1170,250))
-        for snowman in Game.getSpritesbyClass(Snowman1):
-            if snowman.x<0:
-                snowman.destroy()
-        for core in Game.getSpritesbyClass(Core):
-            if core.x<0:
-                core.destroy()
+        Core1((1160,240))
+        for snowman1 in Game.getSpritesbyClass(Snowman1):
+            if snowman1.x<0:
+                snowman1.destroy()
+        for core1 in Game.getSpritesbyClass(Core1):
+            if core1.x<0:
+                core1.destroy()
     def snowmenMaker2():
         Snowman2((-150,195))
-        Core((-220,250))
-        for snowman in Game.getSpritesbyClass(Snowman2):
+        Core2((-260,240))
+        for snowman2 in Game.getSpritesbyClass(Snowman2):
             #snowman.width=-160
-            if snowman.x>1000:
-                snowman.destroy()
-        for core in Game.getSpritesbyClass(Core):
-            if core.x>1000:
-                core.destroy()
+            if snowman2.x>1000:
+                snowman2.destroy()
+        for core2 in Game.getSpritesbyClass(Core2):
+            if core2.x>1000:
+                core2.destroy()
             
     n=0
     time=0
@@ -342,62 +350,74 @@ class Game(App):
             snow.vy = snow.vy+.25  
 
             snow.y += snow.vy
-        if self.o%random.randint(100,500)==0:
+        if (self.o+1)%200==0:
             Game.snowmenMaker1()
             
-        if self.o%random.randint(100,500)==0:
+        if (self.o+1)%300==0:
             Game.snowmenMaker2()
         if self.time>0:
-            for snowman in self.getSpritesbyClass(Snowman1):
-                for core in self.getSpritesbyClass(Core):
-                    if snowman.end==True:
-                        core.vx = -7
-                        snowman.vx = -7
-                    if snowman.end==False:
-                        core.vx = 7
-                        snowman.vx = 7
-                    core.x += core.vx
-                    snowman.x += snowman.vx
+            for snowman1 in self.getSpritesbyClass(Snowman1):
+                for core1 in self.getSpritesbyClass(Core1):
+                    core1.vx = -7
+                    snowman1.vx = -7
+                    core1.x += core1.vx
+                    snowman1.x += snowman1.vx
+            for snowman2 in self.getSpritesbyClass(Snowman2):
+                for core2 in self.getSpritesbyClass(Core2):
+                    core2.vx = 7
+                    snowman2.vx = 7
+                    core2.x += core2.vx
+                    snowman2.x += snowman2.vx
         if self.time>750:
-            for snowman in self.getSpritesbyClass(Snowman1):
-                for core in self.getSpritesbyClass(Core):
-                    core.vx = -11
-                    snowman.vx = -11
-                    core.x += core.vx
-                    snowman.x += snowman.vx
-            for snowman in self.getSpritesbyClass(Snowman2):
-                for core in self.getSpritesbyClass(Core):        
-                    core.vx = 11
-                    snowman.vx = 11
-                    core.x += core.vx
-                    snowman.x += snowman.vx
+            for snowman1 in self.getSpritesbyClass(Snowman1):
+                for core1 in self.getSpritesbyClass(Core1):
+                    core1.vx = -11
+                    snowman1.vx = -11
+                    core1.x += core1.vx
+                    snowman1.x += snowman1.vx
+            for snowman2 in self.getSpritesbyClass(Snowman2):
+                for core2 in self.getSpritesbyClass(Core2):        
+                    core2.vx = 11
+                    snowman2.vx = 11
+                    core2.x += core2.vx
+                    snowman2.x += snowman2.vx
         if self.time>1250:
-            for snowman in self.getSpritesbyClass(Snowman1):
-                for core in self.getSpritesbyClass(Core):
-                    if snowman.end==True:
-                        core.vx = -15
-                        snowman.vx = -15
-                    if snowman.end==False:
-                        core.vx = 15
-                        snowman.vx = 15
-                    core.x += core.vx
-                    snowman.x += snowman.vx
+            for snowman1 in self.getSpritesbyClass(Snowman1):
+                for core1 in self.getSpritesbyClass(Core1):
+                    core1.vx = -15
+                    snowman1.vx = -15
+                    core1.x += core1.vx
+                    snowman1.x += snowman1.vx
+            for snowman2 in self.getSpritesbyClass(Snowman2):
+                for core2 in self.getSpritesbyClass(Core2):        
+                    core2.vx = 15
+                    snowman2.vx = 15
+                    core2.x += core2.vx
+                    snowman2.x += snowman2.vx
         
-        for snowman in self.getSpritesbyClass(Snowman1):
+        for snowman1 in self.getSpritesbyClass(Snowman1):
             for snowball in self.getSpritesbyClass(Snowball):
-                for core in self.getSpritesbyClass(Core):
-                    if snowball.collidingWith(core):
-                        snowman.destroy()
-                        core.destroy()
+                for core1 in self.getSpritesbyClass(Core1):
+                    if snowball.collidingWith(core1):
+                        snowman1.destroy()
+                        core1.destroy()
+                        self.score=self.score+1
+                        #print(self.score)
+        for snowman2 in self.getSpritesbyClass(Snowman2):
+            for snowball in self.getSpritesbyClass(Snowball):
+                for core2 in self.getSpritesbyClass(Core2):
+                    if snowball.collidingWith(core2):
+                        snowman2.destroy()
+                        core2.destroy()
                         self.score=self.score+1
                         #print(self.score)
         
-        for core in self.getSpritesbyClass(Core):
-            for snowman in self.getSpritesbyClass(Snowman1):
+        for core1 in self.getSpritesbyClass(Core1):
+            for core2 in self.getSpritesbyClass(Core2):
                 for snowball in self.getSpritesbyClass(Snowball):
                     for player in self.getSpritesbyClass(Player):
                         for arm in self.getSpritesbyClass(Arm):
-                            if core.collidingWith(player):
+                            if core1.collidingWith(player) or core2.collidingWith(player):
                                 player.destroy()
                                 arm.destroy()
                                 snowball.destroy()
