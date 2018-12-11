@@ -97,7 +97,7 @@ class Snowball(Sprite):
         self.holding=True
         self.reverse=False
         self.spin=False
-    
+
     def step(self):
         if self.reverse==False:
             if self.spin==True and self.holding==True:
@@ -134,7 +134,12 @@ class Snowball(Sprite):
                         self.destroy()
                         print("Your score is: " + str(self.score))
         '''
-        
+class Endscreen(Sprite):
+    asset=RectangleAsset(1000, 800, noline, winter)
+    def __init__(self, position):
+        super().__init__(Endscreen.asset)
+        self.vx = 0
+        self.vy = 0
 class Snowman(Sprite):
     asset=ImageAsset("images/Screenshot 2018-11-28 at 12.png")
 
