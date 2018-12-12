@@ -102,6 +102,9 @@ class Snowball(Sprite):
         if self.spin==True and self.holding==True and self.reverse==False:
             self.vr = self.vr+.01
             self.m+=1
+        if self.spin==True and self.holding==True and self.reverse==True:
+            self.vr = self.vr-.01
+            self.m+=1
         if self.spin==False and self.m>0 and self.holding==False:
             #print("hi")
             self.vx=self.vx0*35
@@ -225,12 +228,12 @@ class Game(App):
             arm.destroy()
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.holding==True:
-                if snowball.reverse==False:
-                    snowball.vx0= (cos(snowball.rotation))*snowball.vr
-                    snowball.vy0=-(sin(snowball.rotation))*snowball.vr
-                if snowball.reverse==True:
-                    snowball.vx0=-(cos(snowball.rotation))*snowball.vr
-                    snowball.vy0=-(sin(snowball.rotation))*snowball.vr
+                #if snowball.reverse==False:
+                snowball.vx0= (cos(snowball.rotation))*snowball.vr
+                snowball.vy0=-(sin(snowball.rotation))*snowball.vr
+                #if snowball.reverse==True:
+                    #snowball.vx0=(cos(snowball.rotation))*snowball.vr
+                    #snowball.vy0=-(sin(snowball.rotation))*snowball.vr
                 snowball.vr=0
                 snowball.spin=False
                 snowball.holding=False
@@ -324,11 +327,9 @@ class Game(App):
             player.y += player.vy
         
         for arm in self.getSpritesbyClass(Arm):
-            if arm.reverse==False:
-                if arm.spin==True:
+            if arm.reverse==False and arm.spin==True:
                     arm.vr = arm.vr+.01
-            if arm.reverse==True:
-                if arm.spin==True:
+            if arm.reverse==True and arm.spin==True:
                     arm.vr = arm.vr-.01
             arm.rotation += arm.vr
             arm.x += arm.vx
