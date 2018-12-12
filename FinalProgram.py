@@ -99,14 +99,15 @@ class Snowball(Sprite):
         self.spin=False
 
     def step(self):
-        if self.reverse==False:
-            if self.spin==True and self.holding==True:
-                self.vr = self.vr+.01
-                self.m+=1
-            if self.spin==False and self.m>0 and self.holding==False:
-                #print("hi")
-                self.vx=self.vx0*35
-                self.vy=self.vy0*35 + .1*self.time
+        #if self.reverse==False:
+        if self.spin==True and self.holding==True:
+            self.vr = self.vr+.01
+            self.m+=1
+        if self.spin==False and self.m>0 and self.holding==False:
+            #print("hi")
+            self.vx=self.vx0*35
+            self.vy=self.vy0*35 + .1*self.time
+        '''
         if self.reverse==True:
             if self.spin==True and self.holding==True:
                 self.vr = self.vr-.01
@@ -115,6 +116,7 @@ class Snowball(Sprite):
                 #print("hi")
                 self.vx=-self.vx0*35
                 self.vy=self.vy0*35 + .1*self.time
+        '''
         self.rotation += self.vr
         self.x += self.vx
         self.y += self.vy 
@@ -224,8 +226,12 @@ class Game(App):
             arm.destroy()
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.holding==True:
-                snowball.vx0= (cos(snowball.rotation))*snowball.vr
-                snowball.vy0=-(sin(snowball.rotation))*snowball.vr
+                if snowball.reverse==False:
+                    snowball.vx0= (cos(snowball.rotation))*snowball.vr
+                    snowball.vy0=-(sin(snowball.rotation))*snowball.vr
+                if snowball.reverse==True:
+                    snowball.vx0=-(cos(snowball.rotation))*snowball.vr
+                    snowball.vy0=-(sin(snowball.rotation))*snowball.vr
                 snowball.vr=0
                 snowball.spin=False
                 snowball.holding=False
