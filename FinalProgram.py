@@ -201,7 +201,8 @@ class Game(App):
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
         Player((484,343))
-        PCore((489,355))
+        #PCore((489,355))
+        PCore((600,355))
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
@@ -414,20 +415,27 @@ class Game(App):
                         core2.destroy()
                         self.score=self.score+1
                         #print(self.score)
-        
+        '''
         for core1 in self.getSpritesbyClass(Core1):
             for core2 in self.getSpritesbyClass(Core2):
                 for snowball in self.getSpritesbyClass(Snowball):
                     for player in self.getSpritesbyClass(Player):
                         for pcore in self.getSpritesbyClass(PCore):
                             for arm in self.getSpritesbyClass(Arm):
-                                if core1.collidingWith(pcore) or core2.collidingWith(pcore):
+                                if core1.collidingWithSprites(pcore) or core2.collidingWithSprites(pcore):
                                     player.destroy()
                                     arm.destroy()
                                     snowball.destroy()
+                                    pcore.destroy()
                                     print("Your score is: " + str(self.score))
                  
-            
+        '''
+        for core1 in self.getSpritesbyClass(Core1):
+            for core2 in self.getSpritesbyClass(Core2):
+                for pcore in self.getSpritesbyClass(PCore):
+                    if pcore.collidingWith(core1) or pcore.collidingWith(core2):
+                        pcore.destroy()
+                        print("Your score is: " + str(self.score))
         self.time+=1
         self.n+=1
         self.o+=1
