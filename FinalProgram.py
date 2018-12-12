@@ -312,18 +312,16 @@ class Game(App):
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.step()
         for player in self.getSpritesbyClass(Player):
- 
-            player.x += player.vx
-            player.y += player.vy
-        
-        for arm in self.getSpritesbyClass(Arm):
-            if arm.reverse==False and arm.spin==True:
-                    arm.vr = arm.vr+.01
-            if arm.reverse==True and arm.spin==True:
-                    arm.vr = arm.vr-.01
-            arm.rotation += arm.vr
-            arm.x += arm.vx
-            arm.y += arm.vy
+            #player.x += player.vx
+            #player.y += player.vy
+            for arm in self.getSpritesbyClass(Arm):
+                if player.reverse==False and arm.spin==True:
+                        arm.vr = arm.vr+.01
+                if player.reverse==True and arm.spin==True:
+                        arm.vr = arm.vr-.01
+                arm.rotation += arm.vr
+                arm.x += arm.vx
+                arm.y += arm.vy
         '''
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.vr>0:
