@@ -56,7 +56,15 @@ class Player(Sprite):
         self.vx = 0
         self.vy = 0
         self.reverse=False
+class PCore(Sprite):
+    asset=RectangleAsset(25,50,noline, teal)
 
+    def __init__(self, position):
+        super().__init__(PCore.asset, position)
+        #self.visible=False
+        self.vx = 0
+        self.vy = 0
+        
 class Snow(Sprite):
     asset = RectangleAsset(2,2,noline,white)
 
@@ -168,7 +176,7 @@ class Core1(Sprite):
 
     def __init__(self, position):
         super().__init__(Core1.asset, position)
-        self.visible=False
+        #self.visible=False
         self.vx = 0
         self.vy = 0
 class Core2(Sprite):
@@ -176,7 +184,7 @@ class Core2(Sprite):
 
     def __init__(self, position):
         super().__init__(Core2.asset, position)
-        self.visible=False
+        #self.visible=False
         self.vx = 0
         self.vy = 0
 
@@ -193,6 +201,7 @@ class Game(App):
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
         Player((484,343))
+        PCore((489,355))
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
@@ -410,12 +419,13 @@ class Game(App):
             for core2 in self.getSpritesbyClass(Core2):
                 for snowball in self.getSpritesbyClass(Snowball):
                     for player in self.getSpritesbyClass(Player):
-                        for arm in self.getSpritesbyClass(Arm):
-                            if core1.collidingWith(player) or core2.collidingWith(player):
-                                player.destroy()
-                                arm.destroy()
-                                snowball.destroy()
-                                print("Your score is: " + str(self.score))
+                        for pcore in self.getSpritesbyClass(PCore):
+                            for arm in self.getSpritesbyClass(Arm):
+                                if core1.collidingWith(pcore) or core2.collidingWith(pcore):
+                                    player.destroy()
+                                    arm.destroy()
+                                    snowball.destroy()
+                                    print("Your score is: " + str(self.score))
                  
             
         self.time+=1
