@@ -99,8 +99,7 @@ class Snowball(Sprite):
         self.spin=False
 
     def step(self):
-        #if self.reverse==False:
-        if self.spin==True and self.holding==True:
+        if self.spin==True and self.holding==True and self.reverse==False:
             self.vr = self.vr+.01
             self.m+=1
         if self.spin==False and self.m>0 and self.holding==False:
