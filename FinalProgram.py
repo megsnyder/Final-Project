@@ -61,7 +61,7 @@ class PCore(Sprite):
 
     def __init__(self, position):
         super().__init__(PCore.asset, position)
-        #self.visible=False
+        self.visible=False
         self.vx = 0
         self.vy = 0
         
@@ -176,7 +176,7 @@ class Core1(Sprite):
 
     def __init__(self, position):
         super().__init__(Core1.asset, position)
-        #self.visible=False
+        self.visible=False
         self.vx = 0
         self.vy = 0
 class Core2(Sprite):
@@ -184,7 +184,7 @@ class Core2(Sprite):
 
     def __init__(self, position):
         super().__init__(Core2.asset, position)
-        #self.visible=False
+        self.visible=False
         self.vx = 0
         self.vy = 0
 
@@ -200,9 +200,9 @@ class Game(App):
         ground_asset = RectangleAsset(self.width, 300, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
-        Player((484,343))
+        self.player=Player((484,343))
         #PCore((489,355))
-        PCore((600,355))
+        self.pcore = PCore((489,355))
         self.asset = [0,0]
         Game.listenMouseEvent('mousedown', self.armspin)
         Game.listenMouseEvent('mouseup', self.armstop)
@@ -251,15 +251,14 @@ class Game(App):
                 snowball.holding=False
             if snowball.y>700:
                 snowball.destroy()
-        for player in self.getSpritesbyClass(Player):        
+        if self.pcore: 
             Snowball((500,375))
             Arm((500,375))
     def right(self,event):
-        for player in self.getSpritesbyClass(Player):
-            #player.vx = 2
-            player.width=42
-            player.x=484
-            player.reverse=False
+        #player.vx = 2
+        self.player.width=42
+        self.player.x=484
+        self.player.reverse=False
         
     '''
     def right2(self,event):
@@ -273,11 +272,11 @@ class Game(App):
                 snowball.vx = 0
     '''
     def left(self,event):
-        for player in self.getSpritesbyClass(Player):
-            #player.vx = -2
-            player.width=-42
-            player.x=514
-            player.reverse=True
+        
+        #player.vx = -2
+        self.player.width=-42
+        self.player.x=514
+        self.player.reverse=True
     '''
     def left2(self,event):
         for player in self.getSpritesbyClass(Player):
@@ -321,17 +320,15 @@ class Game(App):
             #arm.step()
         for snowball in self.getSpritesbyClass(Snowball):
             snowball.step()
-        for player in self.getSpritesbyClass(Player):
-            #player.x += player.vx
-            #player.y += player.vy
-            for arm in self.getSpritesbyClass(Arm):
-                if player.reverse==False and arm.spin==True:
-                        arm.vr = arm.vr+.01
-                if player.reverse==True and arm.spin==True:
-                        arm.vr = arm.vr-.01
-                arm.rotation += arm.vr
-                arm.x += arm.vx
-                arm.y += arm.vy
+
+        for arm in self.getSpritesbyClass(Arm):
+            if self.player.reverse==False and arm.spin==True:
+                    arm.vr = arm.vr+.01
+            if self.player.reverse==True and arm.spin==True:
+                    arm.vr = arm.vr-.01
+            arm.rotation += arm.vr
+            arm.x += arm.vx
+            arm.y += arm.vy
         '''
         for snowball in self.getSpritesbyClass(Snowball):
             if snowball.vr>0:
@@ -354,10 +351,10 @@ class Game(App):
             snow.vy = snow.vy+.25  
 
             snow.y += snow.vy
-        if (self.o+1)%200==0:
+        if (self.o+1)%random.randint(100,400)==0:
             Game.snowmenMaker1()
             
-        if (self.o+1)%300==0:
+        if (self.o+1)%random.randint(100,400)==0:
             Game.snowmenMaker2()
         if self.time>0:
             for snowman1 in self.getSpritesbyClass(Snowman1):
@@ -372,7 +369,7 @@ class Game(App):
                     snowman2.vx = 7
                     core2.x += core2.vx
                     snowman2.x += snowman2.vx
-        if self.time>750:
+        if self.time>random.randint(750,1100):
             for snowman1 in self.getSpritesbyClass(Snowman1):
                 for core1 in self.getSpritesbyClass(Core1):
                     core1.vx = -11
@@ -385,7 +382,7 @@ class Game(App):
                     snowman2.vx = 11
                     core2.x += core2.vx
                     snowman2.x += snowman2.vx
-        if self.time>1250:
+        if self.time>random.randint(1250,1500):
             for snowman1 in self.getSpritesbyClass(Snowman1):
                 for core1 in self.getSpritesbyClass(Core1):
                     core1.vx = -15
@@ -430,12 +427,18 @@ class Game(App):
                                     print("Your score is: " + str(self.score))
                  
         '''
-        for core1 in self.getSpritesbyClass(Core1):
-            for core2 in self.getSpritesbyClass(Core2):
-                for pcore in self.getSpritesbyClass(PCore):
-                    if pcore.collidingWith(core1) or pcore.collidingWith(core2):
-                        pcore.destroy()
-                        print("Your score is: " + str(self.score))
+        if self.pcore and (self.pcore.collidingWithSprites(Core1) or self.pcore.collidingWithSprites(Core2)):
+            self.pcore.destroy()
+            self.pcore = None
+            for player in self.getSpritesbyClass(Player):
+                player.destroy()
+            for arm in self.getSpritesbyClass(Arm):
+                arm.destroy()
+            for snowball in self.getSpritesbyClass(Snowball):
+                snowball.destroy()
+            print("Your score is: " + str(self.score))
+            
+
         self.time+=1
         self.n+=1
         self.o+=1
