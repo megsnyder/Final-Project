@@ -399,7 +399,7 @@ class Game(App):
         for snowman1 in self.getSpritesbyClass(Snowman1):
             for snowball in self.getSpritesbyClass(Snowball):
                 for core1 in self.getSpritesbyClass(Core1):
-                    if snowball.collidingWith(core1):
+                    if snowball.collidingWith(core1) and snowball.holding==False:
                         snowman1.destroy()
                         core1.destroy()
                         self.score=self.score+1
@@ -407,7 +407,7 @@ class Game(App):
         for snowman2 in self.getSpritesbyClass(Snowman2):
             for snowball in self.getSpritesbyClass(Snowball):
                 for core2 in self.getSpritesbyClass(Core2):
-                    if snowball.collidingWith(core2):
+                    if snowball.collidingWith(core2)  and snowball.holding==False:
                         snowman2.destroy()
                         core2.destroy()
                         self.score=self.score+1
