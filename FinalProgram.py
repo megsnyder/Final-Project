@@ -238,7 +238,7 @@ class Game(App):
             arm.vr=0
             arm.spin=False
             arm.destroy()
-        for snowball in self.getSpritesbyClass(Snowball):
+        for snowball in self.getSpritesbyClass(Snowball)[:]:
             if snowball.holding==True:
                 #if snowball.reverse==False:
                 snowball.vx0= (cos(snowball.rotation))*snowball.vr
