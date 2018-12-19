@@ -257,9 +257,11 @@ class Game(App):
             Arm((500,375))
     def right(self,event):
         #player.vx = 2
-        self.player.width=42
-        self.player.x=484
-        self.player.reverse=False
+        for player in self.getSpritesbyClass(Player):
+            if player.reverse==True:
+                player.width=-player.width
+                player.x=484
+                player.reverse=False
         
     '''
     def right2(self,event):
@@ -275,9 +277,12 @@ class Game(App):
     def left(self,event):
         
         #player.vx = -2
-        self.player.width=-42
-        self.player.x=514
-        self.player.reverse=True
+        for player in self.getSpritesbyClass(Player):
+            if player.reverse==False:
+                player.width=-player.width
+                player.x=514
+                player.reverse=True
+
     '''
     def left2(self,event):
         for player in self.getSpritesbyClass(Player):
