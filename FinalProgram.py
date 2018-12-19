@@ -41,7 +41,8 @@ clearline = LineStyle(1, clear)
 tealline =  LineStyle(1, teal)
 grid=RectangleAsset(30,30,gridline,white)
 
-print("Hold down the mouse button to wind up your arm. Release and the snowball gets released as well.")
+print("Hold down the mouse button to wind up your arm. Release and the snowball gets released as well. Try to hit the snowmen and stay alive as long as possible!")
+print(" ")
 print(" ")
 
 class Player(Sprite):
