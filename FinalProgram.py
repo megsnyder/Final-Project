@@ -408,25 +408,29 @@ class Game(App):
                     snowman2.vx = 7
                     core2.x += core2.vx
                     snowman2.x += snowman2.vx
+    
+        for snowball in self.getSpritesbyClass(Snowball):
+            for core1 in self.getSpritesbyClass(Core1):
+                if snowball.collidingWith(core1) and snowball.holding==False:
+                    for snowman1 in self.getSpritesbyClass(Snowman1):
+                        if snowman1.x==core1.x-60:
+                            snowman1.destroy()
+                    core1.destroy()
+                    self.score=self.score+1
+                    #Collision((snowball.x-50,snowball.y-50))
+                    #print(self.score)
         
-        for snowman1 in self.getSpritesbyClass(Snowman1):
-            for snowball in self.getSpritesbyClass(Snowball):
-                for core1 in self.getSpritesbyClass(Core1):
-                    if snowball.collidingWith(core1) and snowball.holding==False:
-                        snowman1.destroy()
-                        core1.destroy()
-                        self.score=self.score+1
-                        #Collision((snowball.x-50,snowball.y-50))
-                        #print(self.score)
-        for snowman2 in self.getSpritesbyClass(Snowman2):
-            for snowball in self.getSpritesbyClass(Snowball):
-                for core2 in self.getSpritesbyClass(Core2):
-                    if snowball.collidingWith(core2)  and snowball.holding==False:
-                        snowman2.destroy()
-                        core2.destroy()
-                        self.score=self.score+1
-                        #Collision((snowball.x-50,snowball.y-50))
-                        #print(self.score)
+        for snowball in self.getSpritesbyClass(Snowball):
+            for core2 in self.getSpritesbyClass(Core2):
+                if snowball.collidingWith(core2)  and snowball.holding==False:
+                    for snowman2 in self.getSpritesbyClass(Snowman2):
+                        if snowman2.x==core2.x+110:
+                            snowman2.destroy()
+                    snowman2.destroy()
+                    core2.destroy()
+                    self.score=self.score+1
+                    #Collision((snowball.x-50,snowball.y-50))
+                    #print(self.score)
         '''
         for core1 in self.getSpritesbyClass(Core1):
             for core2 in self.getSpritesbyClass(Core2):
