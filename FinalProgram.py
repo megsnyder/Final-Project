@@ -426,7 +426,7 @@ class Game(App):
                     for snowman2 in self.getSpritesbyClass(Snowman2):
                         if snowman2.x==core2.x+110:
                             snowman2.destroy()
-                    snowman2.destroy()
+
                     core2.destroy()
                     self.score=self.score+1
                     #Collision((snowball.x-50,snowball.y-50))
