@@ -366,46 +366,46 @@ class Game(App):
             snow.y += snow.vy
         if (self.o+1)%random.randint(100,400)==0:
             Game.snowmenMaker1()
-            
+
         if (self.o+1)%random.randint(100,400)==0:
             Game.snowmenMaker2()
         if self.time>0:
             for snowman1 in self.getSpritesbyClass(Snowman1):
                 for core1 in self.getSpritesbyClass(Core1):
-                    core1.vx = -6
-                    snowman1.vx = -6
+                    core1.vx = -5
+                    snowman1.vx = -5
                     core1.x += core1.vx
                     snowman1.x += snowman1.vx
             for snowman2 in self.getSpritesbyClass(Snowman2):
                 for core2 in self.getSpritesbyClass(Core2):
-                    core2.vx = 6
-                    snowman2.vx = 6
+                    core2.vx = 5
+                    snowman2.vx = 5
                     core2.x += core2.vx
                     snowman2.x += snowman2.vx
-        if self.time>random.randint(750,1100):
+        if self.time>random.randint(1000,1200):
             for snowman1 in self.getSpritesbyClass(Snowman1):
                 for core1 in self.getSpritesbyClass(Core1):
-                    core1.vx = -9
-                    snowman1.vx = -9
+                    core1.vx = -7
+                    snowman1.vx = -7
                     core1.x += core1.vx
                     snowman1.x += snowman1.vx
             for snowman2 in self.getSpritesbyClass(Snowman2):
                 for core2 in self.getSpritesbyClass(Core2):        
-                    core2.vx = 9
-                    snowman2.vx = 9
+                    core2.vx = 7
+                    snowman2.vx = 7
                     core2.x += core2.vx
                     snowman2.x += snowman2.vx
         if self.time>random.randint(1250,1500):
             for snowman1 in self.getSpritesbyClass(Snowman1):
                 for core1 in self.getSpritesbyClass(Core1):
-                    core1.vx = -12
-                    snowman1.vx = -12
+                    core1.vx = -10
+                    snowman1.vx = -10
                     core1.x += core1.vx
                     snowman1.x += snowman1.vx
             for snowman2 in self.getSpritesbyClass(Snowman2):
                 for core2 in self.getSpritesbyClass(Core2):        
-                    core2.vx = 12
-                    snowman2.vx = 12
+                    core2.vx = 10
+                    snowman2.vx = 10
                     core2.x += core2.vx
                     snowman2.x += snowman2.vx
         
