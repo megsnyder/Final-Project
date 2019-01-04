@@ -206,7 +206,7 @@ class Game(App):
         super().__init__(width,height)
         # Backgroundw
         bg_asset = RectangleAsset(self.width, self.height, noline, winter)
-        ground_asset = RectangleAsset(self.width, 300, noline, white)
+        ground_asset = RectangleAsset(self.width, 400, noline, white)
         bg = Sprite(bg_asset, (0,0))
         ground = Sprite(ground_asset, (0,400))
         self.player=Player((484,343))
