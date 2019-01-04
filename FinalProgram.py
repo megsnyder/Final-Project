@@ -127,6 +127,7 @@ class Snowball(Sprite):
             #print("hi")
             self.vx=self.vx0*35
             self.vy=self.vy0*35 + .1*self.time
+            
         '''
         if self.reverse==True:
             if self.spin==True and self.holding==True:
@@ -201,8 +202,8 @@ class Game(App):
     Tutorial4 space game example.
     """
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self,width,height):
+        super().__init__(width,height)
         # Backgroundw
         bg_asset = RectangleAsset(self.width, self.height, noline, winter)
         ground_asset = RectangleAsset(self.width, 300, noline, white)
@@ -251,6 +252,7 @@ class Game(App):
                 #if snowball.reverse==False:
                 snowball.vx0= (cos(snowball.rotation))*snowball.vr
                 snowball.vy0=-(sin(snowball.rotation))*snowball.vr
+                
                 #if snowball.reverse==True:
                     #snowball.vx0=(cos(snowball.rotation))*snowball.vr
                     #snowball.vy0=-(sin(snowball.rotation))*snowball.vr
@@ -307,6 +309,7 @@ class Game(App):
         
         Snowman1((1100,195))
         Core1((1160,240))
+        #print('n')
         for snowman1 in Game.getSpritesbyClass(Snowman1):
             if snowman1.x<0:
                 snowman1.destroy()
@@ -316,6 +319,7 @@ class Game(App):
     def snowmenMaker2():
         Snowman2((-150,195))
         Core2((-260,240))
+        #print('n')
         for snowman2 in Game.getSpritesbyClass(Snowman2):
             #snowman.width=-160
             if snowman2.x>1000:
@@ -462,7 +466,7 @@ class Game(App):
         self.n+=1
         self.o+=1
         
-myapp = Game()
+myapp = Game(SCREEN_WIDTH,SCREEN_HEIGHT)
 myapp.run()
 
 
